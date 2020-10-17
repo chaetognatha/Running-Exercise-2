@@ -1,5 +1,29 @@
+#!usr/bin/python3
 """
-The script should run like this: dna2aa.py DNA.faa output_file.txt
+    Title: Running Exercise II: dna2aa
+    Version: 1
+    Date: 2020-10-11
+    Author(s): Mattis Knulst
+
+    Description:
+
+
+    List of functions:
+        translation_table() will generate a codon-amino acid table as a dictionary
+        translate() uses the translation table and converts a DNA string to RNA and then to an amino acid sequence string
+        get_fasta() extracts headers and sequences in a fasta file and returns them as a dictionary
+        output_dict() takes a dict and prints it to a given output file
+        translate_io() is the main function which calls all the above, it takes an input and an output file as arguments
+
+
+    List of "non standard" modules:
+        No non standard modules are used in the program.
+
+    Procedure:
+
+
+    Usage:
+         python dna2aa.py DNA.faa output_file.txt
 """
 
 
@@ -8,53 +32,48 @@ from typing import Any, Union
 
 
 def translation_table(): # RNA version
-    bases = "TCUG"
-    codons = [a + b + c for a in bases for b in bases for c in bases]
-    # the above generates all the possible three letter combinations of the four bases
-    amino_acids = 'FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG'
-    codon_table = dict(zip(codons, amino_acids))
-    return codon_table
+    nucleotides = "TCUG" # string of RNA letters
+    codons = [a + b + c for a in nucleotides for b in nucleotides for c in nucleotides] # list comprehension to generate possible three letter combinations of nts
+    amino_acids = 'FFLLSSSSYY**CC*WLLLLPPPPHHQQRRRRIIIMTTTTNNKKSSRRVVVVAAAADDEEGGGG' # string that will correspond to translated codons
+    trans_table = dict(zip(codons, amino_acids)) # make a dictionary with the above
+    return trans_table
 
 
-# this function is to translate a nucleotide seq to a amino acid seq
-def translate(seq):
-    codon_table = translation_table()
-    seq = seq.upper().replace('\n', '').replace(' ', '').replace("A", "U")
-    aa_seq: str = ''
-    for i in range(0, len(seq), 3):
-        codon = seq[i: i + 3]
-        amino_acid = codon_table.get(codon, '*')
-        aa_seq += amino_acid
+def translate(seq): # take a DNA string
+    trans_table = translation_table() # import translation table
+    seq = seq.upper().strip().replace(' ', '').replace("A", "U") # make sure the string is uppercase, remove leading and trailing whitespace, remove any spaces in string and replace A with U
+    aa_seq: str = '' # explicitly declare that aa_seq is a string
+    for i in range(0, len(seq), 3): # loop over the length of the sequence string, 3 letters at a time
+        codon = seq[i: i + 3] # extract the codon
+        amino_acid = trans_table.get(codon, '*') # get amino acid or stop value from translation table
+        aa_seq += amino_acid #put aas or stops into a string
     return aa_seq
 
 
 def get_fasta(fh=r"C:\Users\matti\PycharmProjects\bioinfo-project\data\practice.fasta"):
     fasta_dict = {}
-    with open(fh) as f:
-        for line in f:
-            if ">" in line:
-                key = line.rstrip()
-                value = next(f)
-            fasta_dict[key] = value.rstrip()
-    # print(fasta_dict)
+    with open(fh) as f: # open the given file
+        for line in f: # loop over lines in file
+            if ">" in line: # find header
+                key = line.rstrip() # remove trailing whitespace/newlines
+                value = next(f) # following line is the sequence
+            fasta_dict[key] = value.rstrip() #build the dictionary of headers and sequences
     return fasta_dict
 
 
 def output_dict(my_dict, output_file):
-    with open(output_file, "w") as out:
-        for i in my_dict.items():
-            key = str(i[0])
-            value = str(i[1])
-            print(key, value, sep="\n", file=out)
+    with open(output_file, "w") as out: #open a given file to write to
+        for key, value in my_dict.items(): # unpack dictionary
+            print(key, value, sep="\n", file=out) # write headers and sequences to file, make new lines for each
 
 
 def translate_io(input_file=r"C:\Users\matti\PycharmProjects\bioinfo-project\data\practice.fasta", output=r"output.txt"):
-    fasta_dict = get_fasta(input_file)
-    transl_dict = {}
-    for key in fasta_dict:
-        tr_seq = translate(fasta_dict[key])
-        transl_dict[key] = tr_seq
-    output_dict(transl_dict, output)
+    fasta_dict = get_fasta(input_file) # extract headers and sequences
+    transl_dict = {} # declare empty dictionary
+    for key in fasta_dict: # loop over the key headers
+        tr_seq = translate(fasta_dict[key]) # translate DNA -> amino acids
+        transl_dict[key] = tr_seq # put output together in dictionary
+    output_dict(transl_dict, output) # send output dictionary and out file to output function
 
 
 translate_io()
