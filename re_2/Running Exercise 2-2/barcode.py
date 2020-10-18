@@ -4,7 +4,7 @@
     Title: Running Exercise II: barcode.py
     Version: 1
     Date: 2020-10-18
-    Author(s): Mattis Knulst
+    Author(s): Mattis Knulst, Júlia Ortis
 
     Description: This program will parse a fastq and take the headers and sequences and look for sequences starting with
     a given list of barcodes. The barcoded sequences are put in one file together and non-barcoded sequences are put in

@@ -3,7 +3,7 @@
     Title: Running Exercise II: amino count
     Version: 1
     Date: 2020-10-18
-    Author(s): Mattis Knulst
+    Author(s): Mattis Knulst, Júlia Ortis
 
     Description: Simple program for counting absolute abundances of amino acids in sequences and printing them to a file
     - the list of amino acids can consist of any string e.g. "A" or "a" or "Ala" or "ala" but must be in one column with
@@ -64,8 +64,8 @@ def count_aas(aa_seq):
 fasta_dict = get_fasta(amino_faa) # fasta goes here
 with open(output_file, "w") as f: # open output file
     for keys in fasta_dict.keys(): # loop over keys
-        print(keys, file=f) #write the header
-        count_aa_d = count_aas(fasta_dict[keys]) #send the sequence to counting function
+        print(keys, file=f) # write the header
+        count_aa_d = count_aas(fasta_dict[keys]) # send the sequence to counting function
         for key, val in count_aa_d.items(): # print all the counted amino acids to file
             print(key, val, file=f)
 

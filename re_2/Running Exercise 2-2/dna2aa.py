@@ -3,7 +3,7 @@
     Title: Running Exercise II: dna2aa
     Version: 1
     Date: 2020-10-18
-    Author(s): Mattis Knulst
+    Author(s): Mattis Knulst, Júlia Ortis
 
     Description: This program translates DNA sequences to amino acid sequences. The step in which the DNA is converted
     to RNA code is more or less useless (since the translation table could be in DNA code), but mean this code would work
