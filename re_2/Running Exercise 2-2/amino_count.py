@@ -1,6 +1,6 @@
 #!usr/bin/python3
 """
-    Title: Running Exercise II: dna2aa
+    Title: Running Exercise II: amino count
     Version: 1
     Date: 2020-10-18
     Author(s): Mattis Knulst
