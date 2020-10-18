@@ -47,9 +47,9 @@ def count_aas(aa_seq):
     v_aa = []  # list of amino acids
     with open(amino_list, 'r') as f:
         for line in f:
-            v_aa.append(line.rstrip().capitalize())
+            v_aa.append(line.rstrip().upper())
     count_d = {} # declare empty dictionary
-    aa_seq_str = str(aa_seq).capitalize() #make sure sequence is a string and will match case of amino list
+    aa_seq_str = str(aa_seq).upper() #make sure sequence is a string
     for i in v_aa: # iterate over list of amino acids
         count_d[i] = aa_seq_str.count(i) # count occurences of that letter in string and return as value with amino acid as key
     return count_d
