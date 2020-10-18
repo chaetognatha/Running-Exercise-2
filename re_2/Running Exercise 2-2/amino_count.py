@@ -28,6 +28,7 @@
          python amino_count.py amino.faa amino.list output_file.txt
 """
 import sys
+import re
 
 amino_faa = sys.argv[1]
 amino_list = sys.argv[2]
@@ -50,8 +51,13 @@ def count_aas(aa_seq):
             v_aa.append(line.rstrip().upper())
     count_d = {} # declare empty dictionary
     aa_seq_str = str(aa_seq).upper() #make sure sequence is a string
+    x = 0
     for i in v_aa: # iterate over list of amino acids
         count_d[i] = aa_seq_str.count(i) # count occurences of that letter in string and return as value with amino acid as key
+    v_aa_str = ''.join(v_aa)
+    result = re.sub("[" + v_aa_str + "]", '', aa_seq_str)
+    x = len(result)
+    count_d["X"] = x
     return count_d
 
 
