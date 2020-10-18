@@ -2,10 +2,14 @@
 """
     Title: Running Exercise II: dna2aa
     Version: 1
-    Date: 2020-10-11
+    Date: 2020-10-18
     Author(s): Mattis Knulst
 
-    Description:
+    Description: This program translates DNA sequences to amino acid sequences. The step in which the DNA is converted
+    to RNA code is more or less useless (since the translation table could be in DNA code), but mean this code would work
+    with RNA as well as DNA. The translated sequences are written to specified file. I have tried to follow a functional
+    programming paradigm in this script so all operations are packed into functions that are called from a main function
+    found at the end of the script.
 
 
     List of functions:
@@ -20,17 +24,19 @@
         No non standard modules are used in the program.
 
     Procedure:
+    1. extract headers and sequences from given fasta file
+    2. send sequences to translate()
+    3. write headers and translated sequences to output file
 
 
     Usage:
          python dna2aa.py DNA.faa output_file.txt
 """
-
+import sys
+dna_faa = sys.argv[1]
+output_file = sys.argv[2]
 
 # defining a function to create a nucleotide - amino acid translation table
-from typing import Any, Union
-
-
 def translation_table(): # RNA version
     nucleotides = "TCUG" # string of RNA letters
     codons = [a + b + c for a in nucleotides for b in nucleotides for c in nucleotides] # list comprehension to generate possible three letter combinations of nts
@@ -50,7 +56,7 @@ def translate(seq): # take a DNA string
     return aa_seq
 
 
-def get_fasta(fh=r"C:\Users\matti\PycharmProjects\bioinfo-project\data\practice.fasta"):
+def get_fasta(fh):
     fasta_dict = {}
     with open(fh) as f: # open the given file
         for line in f: # loop over lines in file
@@ -67,7 +73,7 @@ def output_dict(my_dict, output_file):
             print(key, value, sep="\n", file=out) # write headers and sequences to file, make new lines for each
 
 
-def translate_io(input_file=r"C:\Users\matti\PycharmProjects\bioinfo-project\data\practice.fasta", output=r"output.txt"):
+def translate_io(input_file, output):
     fasta_dict = get_fasta(input_file) # extract headers and sequences
     transl_dict = {} # declare empty dictionary
     for key in fasta_dict: # loop over the key headers
@@ -76,4 +82,4 @@ def translate_io(input_file=r"C:\Users\matti\PycharmProjects\bioinfo-project\dat
     output_dict(transl_dict, output) # send output dictionary and out file to output function
 
 
-translate_io()
+translate_io(dna_faa, output_file)

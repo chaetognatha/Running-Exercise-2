@@ -1,29 +1,38 @@
 #!usr/bin/python3
 
 """
-    Title: Running Exercise II: dna2aa
+    Title: Running Exercise II: barcode.py
     Version: 1
-    Date: 2020-10-11
+    Date: 2020-10-18
     Author(s): Mattis Knulst
 
-    Description:
+    Description: This program will parse a fastq and take the headers and sequences and look for sequences starting with
+    a given list of barcodes. The barcoded sequences are put in one file together and non-barcoded sequences are put in
+    another. The argument output.txt will currently collect all barcoded samples. The code could easily be extended
+    to take arguments for separate sample files by adding argv[x] to the outputs of the tests for barcodes.
 
 
     List of functions:
-        No user defined functions are used in the program.
+        get_fastq() is a modification of get_fasta() which extracts headers and sequences from a fastq to a dictionary
 
     List of "non standard" modules:
         No non standard modules are used in the program.
 
     Procedure:
+    1. extract headers and sequences using get_fastq
+    2. open two output files for sorting barcoded and not barcoded
+    3. test for barcodes in barcodes_list and send sequences (trimmed from barcodes) and headers to appropriate files
+    4. if no barcodes are found put in a separate file
 
 
     Usage:
-         python dna2aa.py DNA.faa output_file.txt
+         python barcode.py input_filename output_file.txt
 """
-barcodes_list = ['TATCCTCT', 'GTAAGGAG', 'TCTCTCCG']  # list of possible barcodes
-barcode_in = "barcode.fastq"
+import sys
 
+barcodes_list = ['TATCCTCT', 'GTAAGGAG', 'TCTCTCCG']  # list of possible barcodes
+barcode_in = sys.argv[1] # "barcode.fastq"
+barcode_out = sys.argv[2] # "output_file.txt"
 
 def get_fastq(fh):
     fa_dict = {}
@@ -47,13 +56,13 @@ def get_fastq(fh):
 
 fq_dict = get_fastq(barcode_in)
 
-with open('barcode_out', 'w') as bar_out, open('no_barcode_out', 'w') as no_bar_out:  # open two output files
+with open(barcode_out, 'w') as bar_out, open('no_barcode_out', 'w') as no_bar_out:  # open two output files
     for key, value in fq_dict.items():
         if value.startswith(barcodes_list[0]):  # test for a barcode in the list
-            print(key, value[:-8], file=bar_out, sep="\n")  # if true, send to the barcode output
+            print(key, value[8:], file=bar_out, sep="\n")  # if true, send to the barcode output
         elif value.startswith(barcodes_list[1]):
-            print(key, value[:-8], file=bar_out, sep="\n")
+            print(key, value[8:], file=bar_out, sep="\n")
         elif value.startswith(barcodes_list[2]):
-            print(key, value[:-8], file=bar_out, sep="\n")
+            print(key, value[8:], file=bar_out, sep="\n")
         else:
             print(key, value, file=no_bar_out, sep="\n")  # otherwise, put it in the other file
