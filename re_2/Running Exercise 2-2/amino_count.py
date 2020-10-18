@@ -36,7 +36,7 @@ def get_fasta(fh): # extract header and seq as key and value in dictionary from 
     fasta_dict = {}
     with open(fh) as f:
         for line in f:
-            if ">" in line:
+            if line.startswith(">"):
                 key = line.rstrip()
                 value = next(f)
             fasta_dict[key] = value.rstrip()

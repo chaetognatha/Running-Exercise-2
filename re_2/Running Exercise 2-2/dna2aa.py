@@ -60,7 +60,7 @@ def get_fasta(fh):
     fasta_dict = {}
     with open(fh) as f: # open the given file
         for line in f: # loop over lines in file
-            if ">" in line: # find header
+            if line.startswith(">"): # find header
                 key = line.rstrip() # remove trailing whitespace/newlines
                 value = next(f) # following line is the sequence
             fasta_dict[key] = value.rstrip() #build the dictionary of headers and sequences
