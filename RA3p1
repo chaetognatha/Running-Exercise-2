@@ -31,48 +31,31 @@ with open('GeneticData.txt', 'r') as genefile, open('mtDNA.txt','w') as outputdn
     Ychr_dict={}
     seq_listY=[]
     
-    name=next(genefile)
+   # name=next(genefile)
     
     seqmtDNA=''
     seqY=''
     for lines in genefile:
         #print(lines)
         if lines.strip():
-            #print(lines)    #strip the empty lines (\n)
+            print(lines)    #strip the empty lines (\n)
             
             if lines.startswith("mtDNA"):
-                #print(lines)
-                
-                #mtDNA_ID=lines.rstrip()
                 seqmtDNA=next(genefile).rstrip()
-               # outputdna.write(seqmtDNA)
-                #seq_listDNA.append(seq)
-                #mtDNA_dict[mtDNA_ID]=seq_listDNA
                 
-                #seq=next(genefile)
             elif lines.startswith("Y"):
                 
-                #Y_ID=lines.rstrip()         #remove line changes
                 seqY=next(genefile).rstrip()
-                #outputY.write(seqY)
-                
-                #seq_listY.append(seq)
-                #Ychr_dict[Y_ID]=seq_listY
-            
-            else:           #by this point olemme ekan yksilön vikalla rivillä
+            elif "hemophilia" in lines:
+                continue
+            else:           #by this point we are on the last line of the indicidual
+                name=lines
                 if seqmtDNA:    #true as lomg as the line isnt empty line
-                    oldname=name
-                    outputdna.write('>' + oldname + seqmtDNA +'\n')
-                    name='' #name emptied
+                    outputdna.write('>' + name + seqmtDNA +'\n')
+                   # name='' #name emptied
                 if seqY:
-                    outputY.write('>' + oldname + seqY + '\n')
-                if not name:        #this will be true as we emptied it before            
-                    name=lines
-                else: 
-                    name+=lines
-                seqY=''       #need to define seqy again before moving on as the variables inside have a memory
-                seqmtDNA=''                #normally this would be overwritten by the new seqy but some samples dont have y chrom, so we need to delete it each time just in case
-                                
+                    outputY.write('>' + name + seqY + '\n')
+
 
 This was mostly copy pasting and not really done much with this part yet:
 #%%
