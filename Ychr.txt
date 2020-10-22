@@ -1,0 +1,18 @@
+>Prince Fred 
+AGCCTAGCTCGCGCGCGCATATAGCTAGACTAGCATCGAGAGAGAGAG
+>Nicolas II Romanov 
+Not a hemophilia patient
+AAAA-----------AAAA--------------GGGGG-----TTT--
+>Alexei Romanov 
+A hemophilia patient
+AAAA---GAT-CCC-AACA-CGGG-----CGC-GGGGG---CGT----
+>Anastasia4
+Not a hemophilia carrier
+Anastasia4 son
+A hemophilia patient
+AGCGCATATACGATCGATCAGCTGCATCGACTAGCATCGATACGATCG
+>Farmer's daughter
+Not a hemophilia carrier
+>Farmer’s grandson
+Not a hemophilia patient
+?????TATACGCGAAACGATCAGCATGGGTATAGCGCGCTAAGCAT??

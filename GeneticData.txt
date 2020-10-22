@@ -1,0 +1,97 @@
+Princess Irene 
+mtDNA
+ACC??TAGCTAGCTAGCATAGCTAGC
+
+Prince Fred 
+mtDNA
+AGGGAT??CTAGCTAGCATAGCTAGC
+Y chromosome
+AGCCTAGCTCGCGCGCGCATATAGCTAGACTAGCATCGAGAGAGAGAG
+
+Nicolas II Romanov 
+Not a hemophilia patient
+mtDNA
+-----GGGG-----AAA---------
+Y chromosome
+AAAA-----------AAAA--------------GGGGG-----TTT--
+
+Alexandra Romanov 
+A hemophilia carrier
+mtDNA
+AC---A----A---AGCA---?TA?C
+
+Olga Romanov 
+Not a hemophilia patient
+mtDNA
+AGGG???---AGCTA--ATAG?TAGC
+
+Tatiana Romanov 
+Not a hemophilia carrier
+mtDNA
+AGG-------A------------AGC
+
+Maria Romanov 
+Not a hemophilia carrier
+mtDNA
+ACC--TAGCT???TAGCAT?GCT---
+
+Alexei Romanov 
+A hemophilia patient
+mtDNA
+ACC???AGCTAGCT----TAGCTTTT
+Y chromosome
+AAAA---GAT-CCC-AACA-CGGG-----CGC-GGGGG---CGT----
+
+Suspected body of Anastasia Romanov 
+A hemophilia carrier
+mtDNA
+??CAGAGACTCTC???CAAAGCTAGC
+
+
+Anastasia1
+Not a hemophilia carrier
+mtDNA
+ACTGTACGCCA??TAAGCA?G??A?C
+
+Anastasia2
+A hemophilia carrier
+mtDNA
+AGGG???GCT???TA????AGGGGAC
+
+Anastasia3
+Not a hemophilia carrier
+mtDNA
+ACC???AGC????GGGCATA??AATT
+
+Anastasia4
+Not a hemophilia carrier
+
+Anastasia4 son
+A hemophilia patient
+mtDNA
+AACAGAGACTAAA???CAAAGCTAGC
+Y chromosome
+AGCGCATATACGATCGATCAGCTGCATCGACTAGCATCGATACGATCG
+
+Anastasia5
+Not a hemophilia carrier
+mtDNA
+???AGAGACT??CTCTCAAAGCT---
+
+Farmer's daughter
+Not a hemophilia carrier
+
+>Farmer’s grandson
+Not a hemophilia patient
+mtDNA
+ACCAA??GCTAA?TAGCAT-GCT--G
+Y chromosome
+?????TATACGCGAAACGATCAGCATGGGTATAGCGCGCTAAGCAT??
+
+Grigori Rasputin
+Not a hemophilia carrier
+mtDNA
+AAAAAGGGGGGGGGCCCCCTATATAT
+Y chromosome
+ATATATATACGCGCTACGATCAGCATATATATAGCGCGCTAAGCATCG
+
