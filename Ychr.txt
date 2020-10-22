@@ -1,0 +1,32 @@
+>Nicolas II Romanov 
+AGCCTAGCTCGCGCGCGCATATAGCTAGACTAGCATCGAGAGAGAGAG
+>Alexandra Romanov 
+AAAA-----------AAAA--------------GGGGG-----TTT--
+>Olga Romanov 
+AAAA-----------AAAA--------------GGGGG-----TTT--
+>Tatiana Romanov 
+AAAA-----------AAAA--------------GGGGG-----TTT--
+>Maria Romanov 
+AAAA-----------AAAA--------------GGGGG-----TTT--
+>Alexei Romanov 
+AAAA-----------AAAA--------------GGGGG-----TTT--
+>Suspected body of Anastasia Romanov 
+AAAA---GAT-CCC-AACA-CGGG-----CGC-GGGGG---CGT----
+>Anastasia1
+AAAA---GAT-CCC-AACA-CGGG-----CGC-GGGGG---CGT----
+>Anastasia2
+AAAA---GAT-CCC-AACA-CGGG-----CGC-GGGGG---CGT----
+>Anastasia3
+AAAA---GAT-CCC-AACA-CGGG-----CGC-GGGGG---CGT----
+>Anastasia4
+AAAA---GAT-CCC-AACA-CGGG-----CGC-GGGGG---CGT----
+>Anastasia4 son
+AAAA---GAT-CCC-AACA-CGGG-----CGC-GGGGG---CGT----
+>Anastasia5
+AGCGCATATACGATCGATCAGCTGCATCGACTAGCATCGATACGATCG
+>Farmer's daughter
+AGCGCATATACGATCGATCAGCTGCATCGACTAGCATCGATACGATCG
+>>Farmer’s grandson
+AGCGCATATACGATCGATCAGCTGCATCGACTAGCATCGATACGATCG
+>Grigori Rasputin
+?????TATACGCGAAACGATCAGCATGGGTATAGCGCGCTAAGCAT??
