@@ -55,14 +55,7 @@ with open('GeneticData.txt', 'r') as genefile, open('mtDNA.txt','w') as outputdn
                    # name='' #name emptied
                 if seqY:
                     outputY.write('>' + name + seqY + '\n')
-           #     if not name:        #this will be true as we emptied it before            
-            #        name=lines
-             #   else: 
-              #      name+=lines
-               # seqY=''       #need to define seqy again before moving on as the variables inside have a memory
-                #seqmtDNA=''                #normally this would be overwritten by the new seqy but some samples dont have y chrom, so we need to delete it each time just in case
-                               
-    
+
 #get seq1 and compare its every NT to the ones in the equivalent pos in seq2,3,4...
 #do scoring based on this
 #we have the dictionary with the names as keys and values as seqs, no align. make single dics with one key, one value
@@ -86,52 +79,53 @@ with open("mtDNA.txt", 'r') as DNAfile, open("scores.txt","w"):
                                             #as the last id+seq ends with a seq
                                             #instead of the next id
     del lista[:]
-    print(DNA_dict)
-    
-  #  for seq1 in DNA_dict.items():
-   #     print(seq1)
-    #    for seq2 in DNA_dict.items():
-     #       print(seq2)
+    #print(DNA_dict)
+
                 
 #Comparing all sequences to seq2, then was planning on doing the same for the rest
 #remember that the program should be able to read the wanted penalties,score values from the file
     transition = ['AG', 'TC', 'GA', 'CT'] #the transition scores
-    score_list=[]
-    Identical_NTs=0
-    for key, seq1 in DNA_dict.items():
-        for key, seq2 in DNA_dict.items():
-            
-            for NTa,NTb in zip(seq1, seq2):
-                if seq1==seq2:
-                    continue
+    NTscore_list=0
+    Seqscore_list=[]  #list for the total scores of NTs when comparing two seqs
+    Identical_NTs=0   #for counting the identical ones once we start off the loops
+    for key1, seq1 in DNA_dict.items():
+        for key2, seq2 in DNA_dict.items():
+            if key1==key2:
+                continue
+
+            for NTa,NTb in zip(seq1, seq2): #parallel iteration
                 
                 if NTa==NTb:
                     if '-' in NTa and '-' in NTb:
                         score=0
-                        score_list.append(score)
+                        #NTscore_list.append(score)
+                        NTscore_list +=score
+                        
                     else:
                         score=1
-                        score_list.append(score)
+                        #NTscore_list.append(score)
+                        NTscore_list +=score
                         Identical_NTs+=1   #keep count of identical NTs, identical gaps dont count
                 else: #if the nucleotides are not the same
-                    if '-' in NTa or '-' in NTb: #if one sequence hNTas NTa gNTap when aligned to the other one the score is -1 and is added to score_list
+                    if '-' in NTa or '-' in NTb: #if one sequence hNTas NTa gNTap when aligned to the other one the score is -1 and is added to NTscore_list
                         score = -1
-                        score_list.append(score)
+                        #NTscore_list.append(score)
+                        NTscore_list +=score
                     else: #if one of them is not a -, it creates a variable nt_sum that is the sum of the two nucleotides and compares them to the transition list
                         NT_both = NTa + NTb
-                        if NT_both in transition: #if they are in transition the score is -1 and it is appended to score_list
+                        if NT_both in transition: #if they are in transition the score is -1 and it is appended to NTscore_list
                             score = -1
-                            score_list.append(score)
-                        else: #if it is not a transition it means that it is a transversion, which has a score of -2 that is added to score_list
+                            #NTscore_list.append(score)
+                            NTscore_list +=score
+                        else: #if it is not a transition it means that it is a transversion, which has a score of -2 that is added to NTscore_list
                             score = -2
-                            score_list.append(score)
-                IdentityScore=Identical_NTs/len(seq1)*100 ,'%'    #take the total length from whichever seq as they're same length
-
+                            #NTscore_list.append(score)
+                            NTscore_list +=score
                 
-                score_sum = sum(score_list) #then i do a sum to sum all the values in the score_list and assign it to a variable score_sum
-                print(score_sum)
-               # print(IdentityScore)
-        
-        
+            Seqscore_list.append(NTscore_list)
+            NTscore_list=0
+            #print('Alignment between ',key1,' and ',key2, '\n score is 'NTscore_list())
+            print(Seqscore_list)
+                #print(Seqscore_list.append(NTscore_list)
 
 
