@@ -1,0 +1,101 @@
+'''
+
+create fasta file for mtDNA and for Y chromosome
+
+Do the MSA, maybe save it into another file?
+For MSA we need to choose gap penalty model along with gap penalty values and 
+subs matrix
+0. Find the two seqs that give the highest alignment score
+1. look at each two seqs (e.g. a and b), calculate pairwise alignment score
+2.total alignment score is then a sum of all pairwise alig.scores
+- so e.g. if we have seqs a,b,c,d, then the sum S= Sab + Sac + Sad +Sbc + Sbd + 
+Scd 
+
+
+Then in the final file, do the scoring: transitions, transversions and 
+gaps have different penalties. 
+
+output MSA results to a file looking like this
+SampleA SampleB IdentityScore Score
+A1 A2 55.2% 35
+A1 A3 51.3% 17
+
+'''
+
+#parsing the files into mtDNA fasta and Ychr fasta. Atm Im parsing them into 
+#text files as I cant open fastas on my laptop.
+with open('GeneticData.txt', 'r') as genefile, open('mtDNA.txt','w') as outputdna, open('Ychr.txt','w') as outputY:
+    #genefile=genefile.readlines()
+    mtDNA_dict={}
+    seq_listDNA=[]
+    Ychr_dict={}
+    seq_listY=[]
+    
+    name=next(genefile)
+    
+    seqmtDNA=''
+    seqY=''
+    for lines in genefile:
+        #print(lines)
+        if lines.strip():
+            #print(lines)    #strip the empty lines (\n)
+            
+            if lines.startswith("mtDNA"):
+                #print(lines)
+                
+                #mtDNA_ID=lines.rstrip()
+                seqmtDNA=next(genefile).rstrip()
+               # outputdna.write(seqmtDNA)
+                #seq_listDNA.append(seq)
+                #mtDNA_dict[mtDNA_ID]=seq_listDNA
+                
+                #seq=next(genefile)
+            elif lines.startswith("Y"):
+                
+                #Y_ID=lines.rstrip()         #remove line changes
+                seqY=next(genefile).rstrip()
+                #outputY.write(seqY)
+                
+                #seq_listY.append(seq)
+                #Ychr_dict[Y_ID]=seq_listY
+            
+            else:           #by this point olemme ekan yksilön vikalla rivillä
+                if seqmtDNA:    #true as lomg as the line isnt empty line
+                    oldname=name
+                    outputdna.write('>' + oldname + seqmtDNA +'\n')
+                    name='' #name emptied
+                if seqY:
+                    outputY.write('>' + oldname + seqY + '\n')
+                if not name:        #this will be true as we emptied it before            
+                    name=lines
+                else: 
+                    name+=lines
+                seqY=''       #need to define seqy again before moving on as the variables inside have a memory
+                seqmtDNA=''                #normally this would be overwritten by the new seqy but some samples dont have y chrom, so we need to delete it each time just in case
+                                
+
+This was mostly copy pasting and not really done much with this part yet:
+#%%
+#score alignments
+def score_alignment(seq_1, seq_2, match = 1, transition = -1, transversion = -2, gap = -1):
+    '''Function to score an alignment of two sequences
+    Arguments:  seq_1, seq_2 (str): sequences, including gaps.
+                match, transition, transversion, gap (int): scores for each case. Defaults to 1, -1, -2 and -1 respectively.
+    Returns: score of the alignment
+    '''
+    
+if len(seq_1) != len(seq_2): #Validate that both sequences ahve the same length.
+    print('Error: Sequences don\'t match in length:\n{0}\n{1}'.format(seq_1, seq_2))
+    return float('-inf')
+score = 0 #Variable to store the score
+for i in range(len(seq_1)):
+    # Add to the score given the different cases
+    if (seq_1[i] == seq_2[i]):
+        score += match
+    elif (seq_1[i] in ['A', 'G'] and seq_2[i] in ['A', 'G']) or (seq_1[i] in ['C', 'T'] and seq_2[i] in ['C', 'T']):
+        score += transition
+    elif (seq_1[i] == '-' or seq_2[i] == '-'):
+        score += gap
+    else:
+        score += transversion
+return score
