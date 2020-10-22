@@ -55,7 +55,13 @@ with open('GeneticData.txt', 'r') as genefile, open('mtDNA.txt','w') as outputdn
                    # name='' #name emptied
                 if seqY:
                     outputY.write('>' + name + seqY + '\n')
-
+           #     if not name:        #this will be true as we emptied it before            
+            #        name=lines
+             #   else: 
+              #      name+=lines
+               # seqY=''       #need to define seqy again before moving on as the variables inside have a memory
+                #seqmtDNA=''                #normally this would be overwritten by the new seqy but some samples dont have y chrom, so we need to delete it each time just in case
+                               
     
 #get seq1 and compare its every NT to the ones in the equivalent pos in seq2,3,4...
 #do scoring based on this
@@ -82,32 +88,26 @@ with open("mtDNA.txt", 'r') as DNAfile, open("scores.txt","w"):
     del lista[:]
     print(DNA_dict)
     
-    score_list =[]
-    Seq1=DNA_dict['Prince Fred']
-    Seq2=DNA_dict['Nicolas II Romanov']
-    Seq3=DNA_dict['Alexandra Romanov']
-    Seq4=DNA_dict['Olga Romanov']
-    Seq5=DNA_dict['Tatiana Romanov']
-    Seq6=DNA_dict['Maria Romanov']
-    Seq7=DNA_dict['Alexei Romanov']
-    Seq8=DNA_dict['Suspected body of Anastasia Romanov']
-    Seq9=DNA_dict['Anastasia1']
-    Seq10=DNA_dict['Anastasia2']
-    Seq11=DNA_dict['Anastasia3']
-    Seq12=DNA_dict['Anastasia4']
-    Seq13=DNA_dict['Anastasia5']
-    Seq14=DNA_dict["Farmer's daughter"]
-    Seq15=DNA_dict["Farmer’s grandson"]
-    Seq16=DNA_dict['Grigori Rasputin']
-
+  #  for seq1 in DNA_dict.items():
+   #     print(seq1)
+    #    for seq2 in DNA_dict.items():
+     #       print(seq2)
+                
+#Comparing all sequences to seq2, then was planning on doing the same for the rest
+#remember that the program should be able to read the wanted penalties,score values from the file
     transition = ['AG', 'TC', 'GA', 'CT'] #the transition scores
     score_list=[]
     Identical_NTs=0
-    
-#Comparing all sequences to seq2, then was planning on doing the same for the rest
-    for seq1 in DNA_dict:
-        for NTa,NTb in zip(seq1, Seq2):
-            TotalNTs=len(seq1)       #take the total length from whichever seq as they're same length
+    for key, seq1 in DNA_dict.items():
+        print(seq1)
+        for key, seq2 in DNA_dict.items():
+            print(seq2)
+            
+        for NTa,NTb in zip(seq1, seq2):
+            if seq1==seq2:
+                continue
+            
+                   #take the total length from whichever seq as they're same length
             if NTa==NTb:
                 if '-' in NTa and '-' in NTb:
                     score=0
@@ -121,15 +121,16 @@ with open("mtDNA.txt", 'r') as DNAfile, open("scores.txt","w"):
                     score = -1
                     score_list.append(score)
                 else: #if one of them is not a -, it creates a variable nt_sum that is the sum of the two nucleotides and compares them to the transition list
-                    nt_sum = NTa + NTb
-                    if nt_sum in transition: #if they are in transition the score is -1 and it is appended to score_list
+                    NT_both = NTa + NTb
+                    if NT_both in transition: #if they are in transition the score is -1 and it is appended to score_list
                         score = -1
                         score_list.append(score)
                     else: #if it is not a transition it means that it is a transversion, which has a score of -2 that is added to score_list
                         score = -2
                         score_list.append(score)
-            IdentityScore=Identical_NTs/TotalNTs*100 ,'%'
+            IdentityScore=Identical_NTs/len(seq1)*100 ,'%'
             
             score_sum = sum(score_list) #then i do a sum to sum all the values in the score_list and assign it to a variable score_sum
-        print(score_sum)
-        print(IdentityScore)
+            print(score_sum)
+            print(IdentityScore)
+        
