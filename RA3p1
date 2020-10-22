@@ -56,9 +56,9 @@ with open('GeneticData.txt', 'r') as genefile, open('mtDNA.txt','w') as outputdn
                 if seqY:
                     outputY.write('>' + name + seqY + '\n')
 
-#get seq1 and compare its every NT to the ones in the equivalent pos in seq2,3,4...
-#do scoring based on this
-#we have the dictionary with the names as keys and values as seqs, no align. make single dics with one key, one value
+
+
+
 
 with open("mtDNA.txt", 'r') as DNAfile, open("scores.txt","w"):
     
@@ -82,7 +82,6 @@ with open("mtDNA.txt", 'r') as DNAfile, open("scores.txt","w"):
     #print(DNA_dict)
 
                 
-#Comparing all sequences to seq2, then was planning on doing the same for the rest
 #remember that the program should be able to read the wanted penalties,score values from the file
     transition = ['AG', 'TC', 'GA', 'CT'] #the transition scores
     NTscore_list=0
