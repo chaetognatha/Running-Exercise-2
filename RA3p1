@@ -55,13 +55,7 @@ with open('GeneticData.txt', 'r') as genefile, open('mtDNA.txt','w') as outputdn
                    # name='' #name emptied
                 if seqY:
                     outputY.write('>' + name + seqY + '\n')
-           #     if not name:        #this will be true as we emptied it before            
-            #        name=lines
-             #   else: 
-              #      name+=lines
-               # seqY=''       #need to define seqy again before moving on as the variables inside have a memory
-                #seqmtDNA=''                #normally this would be overwritten by the new seqy but some samples dont have y chrom, so we need to delete it each time just in case
-                               
+
     
 #get seq1 and compare its every NT to the ones in the equivalent pos in seq2,3,4...
 #do scoring based on this
