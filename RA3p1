@@ -99,38 +99,39 @@ with open("mtDNA.txt", 'r') as DNAfile, open("scores.txt","w"):
     score_list=[]
     Identical_NTs=0
     for key, seq1 in DNA_dict.items():
-        print(seq1)
         for key, seq2 in DNA_dict.items():
-            print(seq2)
             
-        for NTa,NTb in zip(seq1, seq2):
-            if seq1==seq2:
-                continue
-            
-                   #take the total length from whichever seq as they're same length
-            if NTa==NTb:
-                if '-' in NTa and '-' in NTb:
-                    score=0
-                    score_list.append(score)
-                else:
-                    score=1
-                    score_list.append(score)
-                    Identical_NTs+=1   #keep count of identical NTs, identical gaps dont count
-            else: #if the nucleotides are not the same
-                if '-' in NTa or '-' in NTb: #if one sequence hNTas NTa gNTap when aligned to the other one the score is -1 and is added to score_list
-                    score = -1
-                    score_list.append(score)
-                else: #if one of them is not a -, it creates a variable nt_sum that is the sum of the two nucleotides and compares them to the transition list
-                    NT_both = NTa + NTb
-                    if NT_both in transition: #if they are in transition the score is -1 and it is appended to score_list
+            for NTa,NTb in zip(seq1, seq2):
+                if seq1==seq2:
+                    continue
+                
+                if NTa==NTb:
+                    if '-' in NTa and '-' in NTb:
+                        score=0
+                        score_list.append(score)
+                    else:
+                        score=1
+                        score_list.append(score)
+                        Identical_NTs+=1   #keep count of identical NTs, identical gaps dont count
+                else: #if the nucleotides are not the same
+                    if '-' in NTa or '-' in NTb: #if one sequence hNTas NTa gNTap when aligned to the other one the score is -1 and is added to score_list
                         score = -1
                         score_list.append(score)
-                    else: #if it is not a transition it means that it is a transversion, which has a score of -2 that is added to score_list
-                        score = -2
-                        score_list.append(score)
-            IdentityScore=Identical_NTs/len(seq1)*100 ,'%'
-            
-            score_sum = sum(score_list) #then i do a sum to sum all the values in the score_list and assign it to a variable score_sum
-            print(score_sum)
-            print(IdentityScore)
+                    else: #if one of them is not a -, it creates a variable nt_sum that is the sum of the two nucleotides and compares them to the transition list
+                        NT_both = NTa + NTb
+                        if NT_both in transition: #if they are in transition the score is -1 and it is appended to score_list
+                            score = -1
+                            score_list.append(score)
+                        else: #if it is not a transition it means that it is a transversion, which has a score of -2 that is added to score_list
+                            score = -2
+                            score_list.append(score)
+                IdentityScore=Identical_NTs/len(seq1)*100 ,'%'    #take the total length from whichever seq as they're same length
+
+                
+                score_sum = sum(score_list) #then i do a sum to sum all the values in the score_list and assign it to a variable score_sum
+                print(score_sum)
+               # print(IdentityScore)
         
+        
+
+
