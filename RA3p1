@@ -38,7 +38,7 @@ with open('GeneticData.txt', 'r') as genefile, open('mtDNA.txt','w') as outputdn
     for lines in genefile:
         #print(lines)
         if lines.strip():
-            print(lines)    #strip the empty lines (\n)
+            #print(lines)    #strip the empty lines (\n)
             
             if lines.startswith("mtDNA"):
                 seqmtDNA=next(genefile).rstrip()
@@ -55,30 +55,87 @@ with open('GeneticData.txt', 'r') as genefile, open('mtDNA.txt','w') as outputdn
                    # name='' #name emptied
                 if seqY:
                     outputY.write('>' + name + seqY + '\n')
-
-
-This was mostly copy pasting and not really done much with this part yet:
-#%%
-#score alignments
-def score_alignment(seq_1, seq_2, match = 1, transition = -1, transversion = -2, gap = -1):
-    '''Function to score an alignment of two sequences
-    Arguments:  seq_1, seq_2 (str): sequences, including gaps.
-                match, transition, transversion, gap (int): scores for each case. Defaults to 1, -1, -2 and -1 respectively.
-    Returns: score of the alignment
-    '''
+           #     if not name:        #this will be true as we emptied it before            
+            #        name=lines
+             #   else: 
+              #      name+=lines
+               # seqY=''       #need to define seqy again before moving on as the variables inside have a memory
+                #seqmtDNA=''                #normally this would be overwritten by the new seqy but some samples dont have y chrom, so we need to delete it each time just in case
+                               
     
-if len(seq_1) != len(seq_2): #Validate that both sequences ahve the same length.
-    print('Error: Sequences don\'t match in length:\n{0}\n{1}'.format(seq_1, seq_2))
-    return float('-inf')
-score = 0 #Variable to store the score
-for i in range(len(seq_1)):
-    # Add to the score given the different cases
-    if (seq_1[i] == seq_2[i]):
-        score += match
-    elif (seq_1[i] in ['A', 'G'] and seq_2[i] in ['A', 'G']) or (seq_1[i] in ['C', 'T'] and seq_2[i] in ['C', 'T']):
-        score += transition
-    elif (seq_1[i] == '-' or seq_2[i] == '-'):
-        score += gap
-    else:
-        score += transversion
-return score
+#get seq1 and compare its every NT to the ones in the equivalent pos in seq2,3,4...
+#do scoring based on this
+#we have the dictionary with the names as keys and values as seqs, no align. make single dics with one key, one value
+
+with open("mtDNA.txt", 'r') as DNAfile, open("scores.txt","w"):
+    
+    DNA_dict={}
+    lista = []
+    idheader = None
+    for lines in DNAfile:
+        if lines.startswith('>'):
+            if idheader:
+                DNA_dict[idheader]=''.join(lista) # adding the id to the dic, making the whole 3 lines into a one line, then deleting the lista content so we can start again
+                del lista[:]
+
+            idheader = lines.strip().replace('>','')
+        else:
+            lista.append(lines.strip())
+            #print(lista)
+    DNA_dict[idheader]=''.join(lista)       # need to add this once more
+                                            #as the last id+seq ends with a seq
+                                            #instead of the next id
+    del lista[:]
+    print(DNA_dict)
+    
+    score_list =[]
+    Seq1=DNA_dict['Prince Fred']
+    Seq2=DNA_dict['Nicolas II Romanov']
+    Seq3=DNA_dict['Alexandra Romanov']
+    Seq4=DNA_dict['Olga Romanov']
+    Seq5=DNA_dict['Tatiana Romanov']
+    Seq6=DNA_dict['Maria Romanov']
+    Seq7=DNA_dict['Alexei Romanov']
+    Seq8=DNA_dict['Suspected body of Anastasia Romanov']
+    Seq9=DNA_dict['Anastasia1']
+    Seq10=DNA_dict['Anastasia2']
+    Seq11=DNA_dict['Anastasia3']
+    Seq12=DNA_dict['Anastasia4']
+    Seq13=DNA_dict['Anastasia5']
+    Seq14=DNA_dict["Farmer's daughter"]
+    Seq15=DNA_dict["Farmer’s grandson"]
+    Seq16=DNA_dict['Grigori Rasputin']
+
+    transition = ['AG', 'TC', 'GA', 'CT'] #the transition scores
+    score_list=[]
+    Identical_NTs=0
+    
+#Comparing all sequences to seq2, then was planning on doing the same for the rest
+    for seq1 in DNA_dict:
+        for NTa,NTb in zip(seq1, Seq2):
+            TotalNTs=len(seq1)       #take the total length from whichever seq as they're same length
+            if NTa==NTb:
+                if '-' in NTa and '-' in NTb:
+                    score=0
+                    score_list.append(score)
+                else:
+                    score=1
+                    score_list.append(score)
+                    Identical_NTs+=1   #keep count of identical NTs, identical gaps dont count
+            else: #if the nucleotides are not the same
+                if '-' in NTa or '-' in NTb: #if one sequence hNTas NTa gNTap when aligned to the other one the score is -1 and is added to score_list
+                    score = -1
+                    score_list.append(score)
+                else: #if one of them is not a -, it creates a variable nt_sum that is the sum of the two nucleotides and compares them to the transition list
+                    nt_sum = NTa + NTb
+                    if nt_sum in transition: #if they are in transition the score is -1 and it is appended to score_list
+                        score = -1
+                        score_list.append(score)
+                    else: #if it is not a transition it means that it is a transversion, which has a score of -2 that is added to score_list
+                        score = -2
+                        score_list.append(score)
+            IdentityScore=Identical_NTs/TotalNTs*100 ,'%'
+            
+            score_sum = sum(score_list) #then i do a sum to sum all the values in the score_list and assign it to a variable score_sum
+        print(score_sum)
+        print(IdentityScore)
