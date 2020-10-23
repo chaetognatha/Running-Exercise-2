@@ -33,8 +33,8 @@
          python dna2aa.py DNA.faa output_file.txt
 """
 import sys
-dna_faa = sys.argv[1]
-output_file = sys.argv[2]
+dna_faa = "DNA.faa" #sys.argv[1]
+output_file = "amino_out.faa" #sys.argv[2]
 
 # defining a function to create a nucleotide - amino acid translation table
 def translation_table(): # RNA version
@@ -47,7 +47,7 @@ def translation_table(): # RNA version
 
 def translate(seq): # take a DNA string
     trans_table = translation_table() # import translation table
-    seq = seq.upper().strip().replace(' ', '').replace("A", "U") # make sure the string is uppercase, remove leading and trailing whitespace, remove any spaces in string and replace A with U
+    seq = seq.upper().strip().replace("A", "U") # make sure the string is uppercase, remove leading and trailing whitespace, remove any spaces in string and replace A with U
     aa_seq: str = '' # explicitly declare that aa_seq is a string
     for i in range(0, len(seq), 3): # loop over the length of the sequence string, 3 letters at a time
         codon = seq[i: i + 3] # extract the codon

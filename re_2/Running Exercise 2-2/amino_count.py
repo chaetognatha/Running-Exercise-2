@@ -30,9 +30,9 @@
 import sys
 import re
 
-amino_faa = sys.argv[1]
-amino_list = sys.argv[2]
-output_file = sys.argv[3]
+amino_faa = "amino.faa" # sys.argv[1]
+amino_list = "amino.list" #sys.argv[2]
+output_file = "out_aa_count.txt" #sys.argv[3]
 def get_fasta(fh): # extract header and seq as key and value in dictionary from file
     fasta_dict = {}
     with open(fh) as f:
